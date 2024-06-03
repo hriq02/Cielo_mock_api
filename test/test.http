@@ -2,7 +2,7 @@
 ##list
 
 
-GET http://localhost:3000/products
+#GET http://localhost:3000/products
 
 
 ## post
@@ -28,7 +28,7 @@ Content-Type: application/json
   },
   "recurrent": {
     "interval": "Monthly",
-    "endDate": "2024-02-06"
+    "endDate": "2024-02-23"
   },
   "softDescriptor": "Pedido1234"
 }

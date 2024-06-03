@@ -1,5 +1,5 @@
-import { IsDateString, IsJSON, IsNumber, IsString, isNumber } from "class-validator";
-export class Shipping{
+import { IsNumber, IsString } from "class-validator";
+export class CreateShippingDto{
     @IsString()
     public type: string;
 

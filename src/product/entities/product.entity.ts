@@ -1,22 +1,22 @@
-import { Column, BeforeInsert, PrimaryGeneratedColumn, Entity, OneToOne } from "typeorm";
-import { Recurrent_model } from "./recurrent.entity";
+import { Column, BeforeInsert, PrimaryGeneratedColumn, Entity, OneToOne, JoinColumn } from "typeorm";
+import { Recurrent } from "./recurrent.entity";
 import { nanoid } from "nanoid";
-import { Shipping_model } from "./shipping.entity";
+import { Shipping } from "./shipping.entity";
 
 @Entity({ name: "products" })
 export class Product {
 
     @PrimaryGeneratedColumn("uuid")
-    id : string
+    id : string;
 
     @Column()
-    OrderNumber : number;
+    OrderNumber : string;
 
     @Column()
-    type : string
+    type : string;
 
     @Column()
-    name : string
+    name : string;
 
     @Column()
     description : string
@@ -39,14 +39,22 @@ export class Product {
     @Column()
     sku : string;
 
-    @OneToOne(() => Shipping_model)
-    shipping : Shipping_model
+    @OneToOne(() => Shipping)
+    @JoinColumn()
+    shipping : Shipping;
 
-    @OneToOne(() => Recurrent_model)
-    recurrent : Recurrent_model
+    @OneToOne(() => Recurrent)
+    @JoinColumn()
+    recurrent : Recurrent;
 
-    @Column()
+    @Column({nullable : true})
     short_url : string;
+
+    @Column({nullable : true})
+    showDescription : boolean;
+
+    @Column({nullable : true})
+    softDescriptor : string;
 
     @BeforeInsert()
     beforeInsert() {

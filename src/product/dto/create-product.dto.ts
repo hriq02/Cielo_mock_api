@@ -1,14 +1,14 @@
 
-import { IsAlphanumeric, IsDateString, IsJSON, IsNumber, IsObject, IsString, ValidateNested, isNumber } from "class-validator";
-import { Shipping } from "../subItens/shippment";
-import { Recurrent } from "../subItens/recurrent";
+import { IsAlphanumeric, IsBoolean, isBoolean, IsDateString, IsJSON, IsNumber, IsObject, IsOptional, IsString, ValidateNested } from "class-validator";
+import { CreateShippingDto } from "./shippment-product.dto.subItem";
+import { CreateRecurrentDto } from "./recurrent-product.dto.subItem";
 import { Type } from "class-transformer";
 //import { IsString } from "class-validator/types/decorator/typechecker/IsString";
 
 
 export class CreateProductDto {
     @IsAlphanumeric()
-    OrderNumber : number;
+    OrderNumber : string;
 
     @IsString()
     type : string
@@ -34,17 +34,26 @@ export class CreateProductDto {
     @IsNumber()
     quantity : number;
 
+    @IsOptional()
     @IsString()
     sku : string;
 
     //@IsObject()
     @ValidateNested({ each: true })
-    @Type(() => Shipping)
-    shipping : Shipping
+    @Type(() => CreateShippingDto)
+    shipping : CreateShippingDto;
 
     @ValidateNested({ each: true })
-    @IsObject()
-    recurrent : Recurrent
+    @Type(() => CreateRecurrentDto)
+    recurrent : CreateRecurrentDto;
+    
+    @IsOptional()
+    @IsBoolean()
+    showDescription : boolean;
+
+    @IsOptional()
+    @IsString()
+    softDescriptor : string;
 
     // @IsString()
     // shipping_type : string;

@@ -1,14 +1,15 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Product } from "./product.entity";
 
 @Entity({name: "shipping"})
-export class Shipping_model{
+export class Shipping{
 
     @PrimaryGeneratedColumn()
     id : number;
 
-    @OneToOne(() => Product)
-    Prodcut : Product
+    // @OneToOne(() => Product)
+    // @JoinColumn()
+    // Prodcut : Product;
 
     @Column()
     public type: string;

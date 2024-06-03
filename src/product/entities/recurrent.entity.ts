@@ -1,15 +1,18 @@
-import { Column, Entity, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Product } from "./product.entity";
 
 @Entity({ name: "recurrent" })
-export class Recurrent_model{
+export class Recurrent{
 
     @PrimaryGeneratedColumn()
     id : number;
-    @OneToOne(() => Product)
-    Prodcut : Product
+
+    // @OneToOne(() => Product)
+    // @JoinColumn()
+    // Prodcut : Product;
+
     @Column()
-    recurrent : string;
+    interval : string;
     @Column()
-    end_date : string;
+    endDate : string;
 }
