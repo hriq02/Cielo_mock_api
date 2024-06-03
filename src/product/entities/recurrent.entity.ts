@@ -5,7 +5,7 @@ import { Product } from "./product.entity";
 export class Recurrent{
 
     @PrimaryGeneratedColumn()
-    id : number;
+    recurrent_id : number;
 
     // @OneToOne(() => Product)
     // @JoinColumn()

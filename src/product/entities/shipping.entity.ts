@@ -5,7 +5,7 @@ import { Product } from "./product.entity";
 export class Shipping{
 
     @PrimaryGeneratedColumn()
-    id : number;
+    shipping_id : number;
 
     // @OneToOne(() => Product)
     // @JoinColumn()

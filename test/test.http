@@ -2,9 +2,9 @@
 ##list
 
 
-#GET http://localhost:3000/products
+GET http://localhost:3000/products
 
-
+GET http://localhost:3000/products/909f8d1e-14af-435e-b2b1-2ee99add91e6
 ## post
 
 POST http://localhost:3000/products

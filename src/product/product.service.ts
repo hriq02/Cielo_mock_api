@@ -29,19 +29,37 @@ export class ProductService {
     await this.repo_recurrent.save(recurancy);
     await this.repo_shipping.save(shipping);
     
-    product.recurrent = recurancy;
-    product.shipping = shipping;
+    product.recurrent_id = recurancy.recurrent_id;
+    product.shipping_id = shipping.shipping_id;
     
     await this.repo_product.save(product);
     return new Response_api(product, shipping, recurancy);
   }
 
-  findAll() {
-    return this.repo_product.find();
+  async findAll() {
+    let responses : Response_api[] = [];
+    const products = await this.repo_product.find();
+    const recurrecies = await this.repo_recurrent.find();
+    const shippings = await this.repo_shipping.find();
+
+    for(let i = 0; i <= products.length-1; i++){
+      responses.push(new Response_api(products[i], shippings[i], recurrecies[i]));
+    }
+    return responses;
   }
 
-  findOne(id: string) {
-    return this.repo_product.findOneBy({id});
+  async findOne(id: string) {
+    const product = await this.repo_product.findOneBy({id});
+
+    if(!product) return null;
+
+    const recurrent_id = product.recurrent_id;
+    const recurrent = await this.repo_recurrent.findOneBy({recurrent_id});
+
+    const shipping_id = product.shipping_id;
+    const shipping = await this.repo_shipping.findOneBy({shipping_id});
+
+    return new Response_api(product, shipping, recurrent );
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {

@@ -39,13 +39,19 @@ export class Product {
     @Column()
     sku : string;
 
-    @OneToOne(() => Shipping)
-    @JoinColumn()
-    shipping : Shipping;
+    @Column()
+    shipping_id : number;
 
-    @OneToOne(() => Recurrent)
-    @JoinColumn()
-    recurrent : Recurrent;
+    @Column()
+    recurrent_id : number;
+
+    // @OneToOne(() => Shipping,(Shipping) => Shipping.id,{ cascade: true })
+    // @JoinColumn()
+    // shipping : Shipping;
+
+    // @OneToOne(() => Recurrent,(Recurrent) => Recurrent.id,{ cascade: true })
+    // @JoinColumn()
+    // recurrent : Recurrent;
 
     @Column({nullable : true})
     short_url : string;
