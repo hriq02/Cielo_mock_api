@@ -1,22 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Product } from './entities/product.entity';
-import { Recurrent } from './entities/Recurrent.entity';
-
+import { ProductModule } from './product/product.module';
+import { OrdersModule } from './orders/orders.module';
+import { TokenModule } from './token/token.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot({
-      type : 'sqlite',
-      database : 'db.sqlite',
-      entities : [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize : true,
-      logging : true
-    }),
-    TypeOrmModule.forFeature([Product,Recurrent]),
-  ],
+  imports: [ProductModule, OrdersModule, TokenModule],
   controllers: [AppController],
   providers: [AppService],
 })

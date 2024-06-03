@@ -1,0 +1,34 @@
+
+##list
+
+
+#GET http://localhost:3000/products
+
+
+## post
+
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+  "OrderNumber": "123456",  
+  "type": "Digital",
+  "name": "Pedido",
+  "description": "teste description",
+  "price": 1000000,
+  "weight": 2000000,
+  "expirationDate": "2027-06-19 16:30:00",
+  "maxNumberOfInstallments": 1,
+  "quantity": 2,
+  "sku": "teste",
+  "shipping": {
+    "type": "WithoutShipping",
+    "name": "teste",
+    "price": 1000000000
+  },
+  "recurrent": {
+    "interval": "Monthly",
+    "endDate": "2024-02-06"
+  },
+  "softDescriptor": "Pedido1234"
+}
