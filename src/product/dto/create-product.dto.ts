@@ -7,9 +7,6 @@ import { Type } from "class-transformer";
 
 
 export class CreateProductDto {
-    
-    id : string;
-    
     @IsAlphanumeric()
     OrderNumber : number;
 
