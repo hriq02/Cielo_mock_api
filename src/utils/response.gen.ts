@@ -19,7 +19,9 @@ interface Method{
     rel : string;
     href : string;
 }
-
+/**
+ * this class is responsible for generate a response for api
+ */
 export class Response_api {
     id : string;
     shortUrl : string;

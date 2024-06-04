@@ -2,26 +2,27 @@
 ##list
 
 #access_token : 'olar'
-#GET http://localhost:3000/products
+GET http://localhost:8080/api/public/v1/products/5010ad08-0979-40ee-bf15-5fc2c5123a0a
+access_token : GANfojLQDFES9x5xhlF-IU1FQRXYdTbg-4e83JzV7z9kXKAf3N2KzXhElT1LEFtuOURJxsCMwsmsGCTJGmNBhOSeolV4c4wMzlfb6gxkjIH6aO5d19bULB8UJuk7tfLYyhJYk0aBiIFg7lKV4xRMQhkLYt1UolMVQkwbDjlohpvANmkcCOyJSxiJICLIK3Aq_HjDuxKERYxPv7SgCMF73pRC14jsdsQJp0phEhJTVo4w9pt5XKNUwB-hq028Xj7ZgC46jCnR7iBHyOrlFczdJAN71GsHT-E3WMDDomb68YeEqPLBXNCabSLLnouwuKEfbg3bsXnf1kxMO4CLOiIOuSMPOUpQs14CDTJvDDCuo-Uss0RoS5maAqYlFXZ4fINpm75b5r4X0p4heukljNd2uRqWXWaJzTCJpfqIjjVHjZqnPlsBoTn98z5D1EAM-ubZrr9oRNsPiG7C3qcByVmr-lxlVe86ARlB
 
-#GET http://localhost:3000/products/909f8d1e-14af-435e-b2b1-2ee99add91e6
+#GET http://localhost:8080/products/909f8d1e-14af-435e-b2b1-2ee99add91e6
 ## post
 
-POST http://localhost:3000/token
-Content-Type: application/json
-
-{
-  "ClientId": "b521b6b2-b9b4-4a30-881d-3b63dece0006",
-  "ClientSecret": "08Qkje79NwWRx5BdgNJsIkBuITt5cIVO",
-  "ClientId:ClientSecret": "b521b6b2-b9b4-4a30-881d-3b63dece0006:08Qkje79NwWRx5BdgNJsIkBuITt5cIVO",
-  "Base64": "YjUyMWI2YjItYjliNC00YTMwLTg4MWQtM2I2M2RlY2UwMDA2OjA4UWtqZTc5TndXUng1QmRnTkpzSWtCdUlUdDVjSVZP"
-}
-
-
-
-# POST http://localhost:3000/products
+# POST http://localhost:8080/token
 # Content-Type: application/json
-# access_token : olar
+
+# {
+#   "ClientId": "b521b6b2-b9b4-4a30-881d-3b63dece0006",
+#   "ClientSecret": "08Qkje79NwWRx5BdgNJsIkBuITt5cIVO",
+#   "ClientId:ClientSecret": "b521b6b2-b9b4-4a30-881d-3b63dece0006:08Qkje79NwWRx5BdgNJsIkBuITt5cIVO",
+#   "Base64": "YjUyMWI2YjItYjliNC00YTMwLTg4MWQtM2I2M2RlY2UwMDA2OjA4UWtqZTc5TndXUng1QmRnTkpzSWtCdUlUdDVjSVZP"
+# }
+
+
+
+# POST http://localhost:8080/products
+# Content-Type: application/json
+# access_token : GANfojLQDFES9x5xhlF-IU1FQRXYdTbg-4e83JzV7z9kXKAf3N2KzXhElT1LEFtuOURJxsCMwsmsGCTJGmNBhOSeolV4c4wMzlfb6gxkjIH6aO5d19bULB8UJuk7tfLYyhJYk0aBiIFg7lKV4xRMQhkLYt1UolMVQkwbDjlohpvANmkcCOyJSxiJICLIK3Aq_HjDuxKERYxPv7SgCMF73pRC14jsdsQJp0phEhJTVo4w9pt5XKNUwB-hq028Xj7ZgC46jCnR7iBHyOrlFczdJAN71GsHT-E3WMDDomb68YeEqPLBXNCabSLLnouwuKEfbg3bsXnf1kxMO4CLOiIOuSMPOUpQs14CDTJvDDCuo-Uss0RoS5maAqYlFXZ4fINpm75b5r4X0p4heukljNd2uRqWXWaJzTCJpfqIjjVHjZqnPlsBoTn98z5D1EAM-ubZrr9oRNsPiG7C3qcByVmr-lxlVe86ARlB
 
 # {
 #   "OrderNumber": "123456",  

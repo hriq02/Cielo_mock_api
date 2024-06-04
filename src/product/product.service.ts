@@ -1,4 +1,4 @@
-import { HttpCode, Injectable } from '@nestjs/common';
+import { HttpCode, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { DeepPartial, Repository } from 'typeorm';
@@ -26,7 +26,8 @@ export class ProductService {
 
   async create(dto: CreateProductDto,acces_token : string) {
 
-    if(this.token_repo.findOneBy({acces_token : acces_token}) == null) return this.invalid_acces();
+    if(await this.token_repo.findOneBy({acces_token : acces_token}) === null) 
+      throw new UnauthorizedException('acces token invalid');
 
     const product = this.repo_product.create(dto);
     const recurancy = this.repo_recurrent.create(dto.recurrent);
@@ -44,7 +45,8 @@ export class ProductService {
 
   async findAll(acces_token : string) {
     
-    if(this.token_repo.findOneBy({acces_token : acces_token}) == null) return this.invalid_acces();
+    if(this.token_repo.findOneBy({acces_token : acces_token}) == null) 
+      throw new UnauthorizedException('acces token invalid');;
 
     let responses : Response_api[] = [];
     const products = await this.repo_product.find();
@@ -59,11 +61,12 @@ export class ProductService {
 
   async findOne(id: string, acces_token : string) {
 
-    if(this.token_repo.findOneBy({acces_token : acces_token}) == null) return this.invalid_acces();
+    if(await this.token_repo.findOneBy({acces_token : acces_token}) === null) 
+      throw new UnauthorizedException('acces token invalid');;
 
     const product = await this.repo_product.findOneBy({id});
 
-    if(!product) return this.null_product();
+    if(!product) throw new NotFoundException();
 
     const recurrent_id = product.recurrent_id;
     const recurrent = await this.repo_recurrent.findOneBy({recurrent_id});
@@ -75,36 +78,28 @@ export class ProductService {
   }
 
   async update(id: string, updateProductDto: UpdateProductDto, acces_token : string) {
+
+    if(await this.token_repo.findOneBy({acces_token : acces_token}) === null) 
+      throw new UnauthorizedException('acces token invalid');;
+
     const product = await this.repo_product.findOneBy({id});
 
-    if(!product) return this.null_product();
+    if(!product) throw new NotFoundException();
 
     this.repo_product.merge(product, updateProductDto);
     return this.repo_product.save(product);
   }
 
   async remove(id: string, acces_token : string) {
+
+    if(await this.token_repo.findOneBy({acces_token : acces_token}) === null) 
+      throw new UnauthorizedException('acces token invalid');;
+
     const product = await this.repo_product.findOneBy({id});
 
-    if(!product) return this.null_product();
+    if(!product) throw new NotFoundException();
 
     this.repo_product.remove(product);
     return product;
-  }
-
-  @HttpCode(401)
-  private invalid_acces(){
-    return {
-      error : "Invalid acces",
-      message : "access_token invalid,created or expired"
-    }
-  }
-
-  @HttpCode(400)
-  private null_product(){
-    return {
-      error : "Product not found",
-      message : "the id was not found"
-    };
   }
 }
