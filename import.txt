@@ -20,6 +20,7 @@ caminho das api:
 link do manual da cielo no github.io
 https://developercielo.github.io/manual/linkdepagamentos5
 
+npm run start:dev
 
 TORUN:
     //se caso for necessairo
