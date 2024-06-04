@@ -11,16 +11,21 @@ export class TokenService {
 
   constructor(
     @InjectRepository(Token)
-    public readonly token_repo : Repository<Token>
+    private readonly token_repo : Repository<Token>
   ){}
   async create(createTokenDto: CreateTokenDto) {
     const accessToken = nanoid(480);
 
+    // const token = new Token();
+    // token.acces_token = accessToken;
+
     const token = {
       acces_token : accessToken
-    };
+    }
 
     await this.token_repo.create(token);
+
+    await this.token_repo.save(token);
 
     const response ={
       access_token : accessToken,
