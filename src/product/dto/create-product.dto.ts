@@ -1,7 +1,7 @@
 
 import { IsAlphanumeric, IsBoolean, isBoolean, IsDateString, IsJSON, IsNumber, IsObject, IsOptional, IsString, Max, MaxLength, ValidateNested } from "class-validator";
 import { CreateShippingDto } from "./create-shipping";
-import { CreateRecurrentDto } from "./create-recurrent";
+import { CreateRecurrentDto } from "../../recurrent/dto/create-recurrent.dto";
 import { Type } from "class-transformer";
 //import { IsString } from "class-validator/types/decorator/typechecker/IsString";
 

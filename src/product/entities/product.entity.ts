@@ -1,5 +1,5 @@
 import { Column, BeforeInsert, PrimaryGeneratedColumn, Entity, OneToOne, JoinColumn } from "typeorm";
-import { Recurrent } from "./recurrent.entity";
+import { Recurrent } from "../../recurrent/entities/recurrent.entity";
 import { nanoid } from "nanoid";
 import { Shipping } from "./shipping.entity";
 

@@ -5,6 +5,7 @@ import { ProductModule } from './product/product.module';
 import { OrdersModule } from './orders/orders.module';
 import { TokenModule } from './token/token.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { RecurrentModule } from './recurrent/recurrent.module';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       entities : [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize : true
     }),
-    ProductModule, OrdersModule, TokenModule],
+    ProductModule, OrdersModule, TokenModule, RecurrentModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -5,8 +5,9 @@ import { Repository } from 'typeorm';
 import { Product } from './entities/product.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Shipping } from './entities/shipping.entity';
-import { Recurrent } from './entities/recurrent.entity';
+
 import { Token } from 'src/token/entities/token.entity';
+import { Recurrent } from 'src/recurrent/entities/recurrent.entity';
 
 @Injectable()
 export class ProductService {
@@ -84,27 +85,6 @@ export class ProductService {
       throw new UnauthorizedException('acces token invalid');
   }
 
-  async find_recurrent(id : string) {
-    const product = await this.repo_product.findOneBy({id});
-    if(!product) throw new NotFoundException();
-    const recurrent_id = product.recurrent_id;
-
-    const recurrent = await this.repo_recurrent.findOneBy({recurrent_id});
-    if(!recurrent) throw new NotFoundException();
-
-    return this.recurrency_response(product, recurrent);
-  }
-  
-  private recurrency_response(product : Product,recurrency : Recurrent) {
-    return {
-      $id : recurrency.recurrent_id,
-      pagadorRecurrentPaymentId : product.id,
-      interval : recurrency.interval,
-      endDate : recurrency.endDate,
-      intervalDescription : recurrency.interval
-    }
-  }
-
   private product_response(product : Product, shipping : Shipping, recurency : Recurrent) {
     return {
       id : product.id,
@@ -134,19 +114,19 @@ export class ProductService {
       met_get : {
         method : "GET",
         rel : "self",
-        href : `http://localhost:3000/Api/public/v1/product/${product.id}`
+        href : `http://localhost:8080/Api/public/v1/product/${product.id}`
       },
 
       met_put : {
         method : "PUT",
         rel : "update",
-        href : `http://localhost:3000/Api/public/v1/product/${product.id}`
+        href : `http://localhost:8080/Api/public/v1/product/${product.id}`
       },
 
       met_del : {
         method : "DELETE",
         rel : "delete",
-        href : `http://localhost:3000/Api/public/v1/product/${product.id}`
+        href : `http://localhost:8080/Api/public/v1/product/${product.id}`
       },
     }
 }

@@ -12,21 +12,6 @@ export class TokenController {
     return this.tokenService.create(TokenDto);
   }
 
-  // @Get()
-  // findAll() {
-  //   return this.tokenService.findAll();
-  // }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.tokenService.findOne(+id);
-  // }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateTokenDto: UpdateTokenDto) {
-  //   return this.tokenService.update(id, updateTokenDto);
-  // }
-
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.tokenService.remove(id);
