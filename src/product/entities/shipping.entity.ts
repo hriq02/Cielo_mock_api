@@ -11,12 +11,31 @@ export class Shipping{
     // @JoinColumn()
     // Prodcut : Product;
 
-    @Column()
+    @Column({
+        type : "char",
+        length : 8,
+        nullable : false
+    })
+    public originZipCode : string;
+
+    @Column({
+        type : "char",
+        length : 255,
+        nullable : false
+    })
     public type: string;
 
-    @Column()
+    @Column({
+        type : "char",
+        length : 128,
+        nullable : false
+    })
     public name : string;
 
-    @Column()
+    @Column({
+        type : "integer",
+        length : 100000,
+        nullable : false
+    })
     public price : number;
 }

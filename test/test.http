@@ -2,13 +2,14 @@
 ##list
 
 #access_token : 'olar'
-GET http://localhost:8080/api/public/v1/products/5010ad08-0979-40ee-bf15-5fc2c5123a0a
-access_token : GANfojLQDFES9x5xhlF-IU1FQRXYdTbg-4e83JzV7z9kXKAf3N2KzXhElT1LEFtuOURJxsCMwsmsGCTJGmNBhOSeolV4c4wMzlfb6gxkjIH6aO5d19bULB8UJuk7tfLYyhJYk0aBiIFg7lKV4xRMQhkLYt1UolMVQkwbDjlohpvANmkcCOyJSxiJICLIK3Aq_HjDuxKERYxPv7SgCMF73pRC14jsdsQJp0phEhJTVo4w9pt5XKNUwB-hq028Xj7ZgC46jCnR7iBHyOrlFczdJAN71GsHT-E3WMDDomb68YeEqPLBXNCabSLLnouwuKEfbg3bsXnf1kxMO4CLOiIOuSMPOUpQs14CDTJvDDCuo-Uss0RoS5maAqYlFXZ4fINpm75b5r4X0p4heukljNd2uRqWXWaJzTCJpfqIjjVHjZqnPlsBoTn98z5D1EAM-ubZrr9oRNsPiG7C3qcByVmr-lxlVe86ARlB
+GET http://localhost:8080/api/public/v1/products/
+#95801617-d67b-46a7-90d2-1d1f32a0cc95
+access_token : 08HEsaiY-T16dNwqQ1SXJnUlzOFUNZ9rlNKVOjlqiI3XzKB5boJGeV372zBmbpVyvc1EB-J6GhyIhHGDCnVh0DrD3PBnjgxo2ZnJmJPEcmmAzU62WsEAv78Sf2q5YnU0s2EGCaZAZlWZvO2FOnUYREVDF0nz1BH0AvQRrmj_j6uwK8eCD0kI4d87_JZF1ZAZ48zTNKjkMMqzA3JfjPHP9ZwZbZZuKaZ0CxJlPjtfolVFiyXyEiBOQaF7IMueR1XS9qJJCEvO5KObunD0oyUvxoD0KpbnLDdxmloZuRz1KVnJJcxjXDYFxbCn8lPAZlmQXaf1RVa5D9VAx-gJ2ucTvk97JxOZxZgnhh87cPH8xyO2JEZmASMTACM_3FSgPWBw5rwbO89uhT_aZJkWtkleiqa5cZsGnY6HmPbT79QelHgmU0-1IkM0GgNMn7gFd1vWhkA--soef4sRGnqIEOnLVn7MHwEpe9Dd
 
 #GET http://localhost:8080/products/909f8d1e-14af-435e-b2b1-2ee99add91e6
 ## post
 
-# POST http://localhost:8080/token
+# POST http://localhost:8080/api/public/v2/token
 # Content-Type: application/json
 
 # {
@@ -18,31 +19,31 @@ access_token : GANfojLQDFES9x5xhlF-IU1FQRXYdTbg-4e83JzV7z9kXKAf3N2KzXhElT1LEFtuO
 #   "Base64": "YjUyMWI2YjItYjliNC00YTMwLTg4MWQtM2I2M2RlY2UwMDA2OjA4UWtqZTc5TndXUng1QmRnTkpzSWtCdUlUdDVjSVZP"
 # }
 
+#95801617-d67b-46a7-90d2-1d1f32a0cc95
 
-
-# POST http://localhost:8080/products
+# POST http://localhost:8080/api/public/v1/products/
 # Content-Type: application/json
-# access_token : GANfojLQDFES9x5xhlF-IU1FQRXYdTbg-4e83JzV7z9kXKAf3N2KzXhElT1LEFtuOURJxsCMwsmsGCTJGmNBhOSeolV4c4wMzlfb6gxkjIH6aO5d19bULB8UJuk7tfLYyhJYk0aBiIFg7lKV4xRMQhkLYt1UolMVQkwbDjlohpvANmkcCOyJSxiJICLIK3Aq_HjDuxKERYxPv7SgCMF73pRC14jsdsQJp0phEhJTVo4w9pt5XKNUwB-hq028Xj7ZgC46jCnR7iBHyOrlFczdJAN71GsHT-E3WMDDomb68YeEqPLBXNCabSLLnouwuKEfbg3bsXnf1kxMO4CLOiIOuSMPOUpQs14CDTJvDDCuo-Uss0RoS5maAqYlFXZ4fINpm75b5r4X0p4heukljNd2uRqWXWaJzTCJpfqIjjVHjZqnPlsBoTn98z5D1EAM-ubZrr9oRNsPiG7C3qcByVmr-lxlVe86ARlB
+# access_token : 08HEsaiY-T16dNwqQ1SXJnUlzOFUNZ9rlNKVOjlqiI3XzKB5boJGeV372zBmbpVyvc1EB-J6GhyIhHGDCnVh0DrD3PBnjgxo2ZnJmJPEcmmAzU62WsEAv78Sf2q5YnU0s2EGCaZAZlWZvO2FOnUYREVDF0nz1BH0AvQRrmj_j6uwK8eCD0kI4d87_JZF1ZAZ48zTNKjkMMqzA3JfjPHP9ZwZbZZuKaZ0CxJlPjtfolVFiyXyEiBOQaF7IMueR1XS9qJJCEvO5KObunD0oyUvxoD0KpbnLDdxmloZuRz1KVnJJcxjXDYFxbCn8lPAZlmQXaf1RVa5D9VAx-gJ2ucTvk97JxOZxZgnhh87cPH8xyO2JEZmASMTACM_3FSgPWBw5rwbO89uhT_aZJkWtkleiqa5cZsGnY6HmPbT79QelHgmU0-1IkM0GgNMn7gFd1vWhkA--soef4sRGnqIEOnLVn7MHwEpe9Dd
 
 # {
-#   "OrderNumber": "123456",  
+#   "OrderNumber": "789123",  
 #   "type": "Digital",
 #   "name": "Pedido",
-#   "description": "teste description",
+#   "description": "teste description 3",
 #   "price": 1000000,
 #   "weight": 2000000,
-#   "expirationDate": "2027-06-19 16:30:00",
+#   "expirationDate": "2025-04-21 10:32:00",
 #   "maxNumberOfInstallments": 1,
-#   "quantity": 2,
-#   "sku": "teste",
+#   "quantity": 1,
+#   "sku": "teste 3",
 #   "shipping": {
 #     "type": "WithoutShipping",
-#     "name": "teste",
+#     "name": "teste3",
 #     "price": 1000000000
 #   },
 #   "recurrent": {
 #     "interval": "Monthly",
-#     "endDate": "2024-02-23"
+#     "endDate": "2025-05-23"
 #   },
 #   "softDescriptor": "Pedido1234"
 # }

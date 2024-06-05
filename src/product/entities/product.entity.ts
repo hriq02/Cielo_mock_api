@@ -9,34 +9,74 @@ export class Product {
     @PrimaryGeneratedColumn("uuid")
     id : string;
 
-    @Column()
+    @Column({
+        type : "char",
+        length : 64,
+        nullable : true
+    })
     OrderNumber : string;
 
-    @Column()
+    @Column({
+        type : "char",
+        length : 255,
+        nullable : true
+    })
     type : string;
 
-    @Column()
+    @Column({
+        type : "char",
+        length : 128,
+        nullable : false
+    })
     name : string;
 
-    @Column()
+    @Column({
+        type : "char",
+        length : 256,
+        nullable : true
+    })
     description : string
 
-    @Column()
+    @Column({
+        type : "integer",
+        length : 1000000,
+        nullable : false
+    })
     price : number;
 
-    @Column()
+    @Column({
+        type : "integer",
+        length : 2000000,
+        nullable : true
+    })
     weight : number;
 
-    @Column()
+    @Column({
+        type : "char",
+        length : 20,
+        nullable : true
+    })
     expirationDate : string;
 
-    @Column()
+    @Column({
+        type : "integer",
+        length : 2,
+        nullable : true
+    })
     maxNumberOfInstallments : number;
 
-    @Column()
+    @Column({
+        type : "integer",
+        length : 2,
+        nullable : true
+    })
     quantity : number;
 
-    @Column()
+    @Column({
+        type : "char",
+        length : 32,
+        nullable : true
+    })
     sku : string;
 
     @Column()
@@ -45,21 +85,24 @@ export class Product {
     @Column()
     recurrent_id : number;
 
-    // @OneToOne(() => Shipping,(Shipping) => Shipping.id,{ cascade: true })
-    // @JoinColumn()
-    // shipping : Shipping;
-
-    // @OneToOne(() => Recurrent,(Recurrent) => Recurrent.id,{ cascade: true })
-    // @JoinColumn()
-    // recurrent : Recurrent;
-
-    @Column({nullable : true})
+    @Column({
+        type : "char",
+        length : 7,
+        nullable : true
+    })
     short_url : string;
 
-    @Column({nullable : true})
+    @Column({
+        type : "boolean",
+        nullable : true
+    })
     showDescription : boolean;
 
-    @Column({nullable : true})
+    @Column({
+        type : "char",
+        length : 13,
+        nullable : true
+    })
     softDescriptor : string;
 
     @BeforeInsert()

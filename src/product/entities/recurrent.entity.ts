@@ -11,8 +11,17 @@ export class Recurrent{
     // @JoinColumn()
     // Prodcut : Product;
 
-    @Column()
+    @Column({
+        type : "char",
+        length : 128,
+        nullable : true
+    })
     interval : string;
-    @Column()
+
+    @Column({
+        type : "char",
+        length : 20,
+        nullable : true
+    })
     endDate : string;
 }

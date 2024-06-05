@@ -1,14 +1,11 @@
-import { HttpCode, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { DeepPartial, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Product } from './entities/product.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateRecurrentDto } from './dto/recurrent-product.dto.subItem';
-import { CreateShippingDto } from './dto/shippment-product.dto.subItem';
 import { Shipping } from './entities/shipping.entity';
 import { Recurrent } from './entities/recurrent.entity';
-import { Response_api } from 'src/utils/response.gen';
 import { Token } from 'src/token/entities/token.entity';
 
 @Injectable()
@@ -24,11 +21,7 @@ export class ProductService {
     private readonly token_repo : Repository<Token>
   ){}
 
-  async create(dto: CreateProductDto,acces_token : string) {
-
-    if(await this.token_repo.findOneBy({acces_token : acces_token}) === null) 
-      throw new UnauthorizedException('acces token invalid');
-
+  async create(dto: CreateProductDto) {
     const product = this.repo_product.create(dto);
     const recurancy = this.repo_recurrent.create(dto.recurrent);
     const shipping = this.repo_shipping.create(dto.shipping);
@@ -40,30 +33,22 @@ export class ProductService {
     product.shipping_id = shipping.shipping_id;
     
     await this.repo_product.save(product);
-    return new Response_api(product, shipping, recurancy);
+    return this.product_response(product, shipping, recurancy);
   }
 
-  async findAll(acces_token : string) {
-    
-    if(this.token_repo.findOneBy({acces_token : acces_token}) == null) 
-      throw new UnauthorizedException('acces token invalid');;
-
-    let responses : Response_api[] = [];
+  async findAll() {
+    let responses = [];
     const products = await this.repo_product.find();
     const recurrecies = await this.repo_recurrent.find();
     const shippings = await this.repo_shipping.find();
 
     for(let i = 0; i <= products.length-1; i++){
-      responses.push(new Response_api(products[i], shippings[i], recurrecies[i]));
+      responses.push(this.product_response(products[i], shippings[i], recurrecies[i]));
     }
     return responses;
   }
 
-  async findOne(id: string, acces_token : string) {
-
-    if(await this.token_repo.findOneBy({acces_token : acces_token}) === null) 
-      throw new UnauthorizedException('acces token invalid');;
-
+  async findOne(id: string) {
     const product = await this.repo_product.findOneBy({id});
 
     if(!product) throw new NotFoundException();
@@ -74,14 +59,10 @@ export class ProductService {
     const shipping_id = product.shipping_id;
     const shipping = await this.repo_shipping.findOneBy({shipping_id});
 
-    return new Response_api(product, shipping, recurrent );
+    return this.product_response(product, shipping, recurrent );
   }
 
-  async update(id: string, updateProductDto: UpdateProductDto, acces_token : string) {
-
-    if(await this.token_repo.findOneBy({acces_token : acces_token}) === null) 
-      throw new UnauthorizedException('acces token invalid');;
-
+  async update(id: string, updateProductDto: UpdateProductDto) {
     const product = await this.repo_product.findOneBy({id});
 
     if(!product) throw new NotFoundException();
@@ -90,16 +71,85 @@ export class ProductService {
     return this.repo_product.save(product);
   }
 
-  async remove(id: string, acces_token : string) {
-
-    if(await this.token_repo.findOneBy({acces_token : acces_token}) === null) 
-      throw new UnauthorizedException('acces token invalid');;
-
+  async remove(id: string) {
     const product = await this.repo_product.findOneBy({id});
-
     if(!product) throw new NotFoundException();
 
     this.repo_product.remove(product);
     return product;
   }
+
+  async check_token(acces_token : string) {
+    if(await this.token_repo.findOneBy({acces_token : acces_token}) === null) 
+      throw new UnauthorizedException('acces token invalid');
+  }
+
+  async find_recurrent(id : string) {
+    const product = await this.repo_product.findOneBy({id});
+    if(!product) throw new NotFoundException();
+    const recurrent_id = product.recurrent_id;
+
+    const recurrent = await this.repo_recurrent.findOneBy({recurrent_id});
+    if(!recurrent) throw new NotFoundException();
+
+    return this.recurrency_response(product, recurrent);
+  }
+  
+  private recurrency_response(product : Product,recurrency : Recurrent) {
+    return {
+      $id : recurrency.recurrent_id,
+      pagadorRecurrentPaymentId : product.id,
+      interval : recurrency.interval,
+      endDate : recurrency.endDate,
+      intervalDescription : recurrency.interval
+    }
+  }
+
+  private product_response(product : Product, shipping : Shipping, recurency : Recurrent) {
+    return {
+      id : product.id,
+      shortUrl : `http://bit.ly/${product.short_url}`,
+      OrderNumber : product.OrderNumber,
+      type : product.type,
+      name : product.name,
+      description : product.description,
+      showDescription : product.showDescription,
+      price : product.price,
+      weight : product.weight,
+      
+      shipping : {
+          type : shipping.type,
+          name : shipping.name,
+          price : shipping.price
+      },
+      recurrent : {
+          interval : recurency.interval,
+          endDate : recurency.endDate
+      },
+      
+      softDescriptor : product.softDescriptor,
+      expirationDate : product.expirationDate,
+      maxNumberOfInstallments : product.maxNumberOfInstallments,
+
+      met_get : {
+        method : "GET",
+        rel : "self",
+        href : `http://localhost:3000/Api/public/v1/product/${product.id}`
+      },
+
+      met_put : {
+        method : "PUT",
+        rel : "update",
+        href : `http://localhost:3000/Api/public/v1/product/${product.id}`
+      },
+
+      met_del : {
+        method : "DELETE",
+        rel : "delete",
+        href : `http://localhost:3000/Api/public/v1/product/${product.id}`
+      },
+    }
+}
+
+
 }

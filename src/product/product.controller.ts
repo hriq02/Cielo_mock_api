@@ -8,27 +8,32 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post()
-  create(@Body() createProductDto: CreateProductDto, @Headers('access_token') acces_token : string) {
-    return this.productService.create(createProductDto,acces_token);
+  async create(@Body() createProductDto: CreateProductDto, @Headers('access_token') acces_token : string) {
+    await this.productService.check_token(acces_token);
+    return this.productService.create(createProductDto);
   }
 
   @Get()
-  findAll(@Headers('access_token') acces_token : string) {
-    return this.productService.findAll(acces_token);
+  async findAll(@Headers('access_token') acces_token : string) {
+    await this.productService.check_token(acces_token);
+    return this.productService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string, @Headers('access_token') acces_token : string) {
-    return this.productService.findOne(id,acces_token);
+  async findOne(@Param('id') id: string, @Headers('access_token') acces_token : string) {
+    await this.productService.check_token(acces_token);
+    return this.productService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto,@Headers('access_token') acces_token : string) {
-    return this.productService.update(id, updateProductDto,acces_token);
+  async update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto,@Headers('access_token') acces_token : string) {
+    await this.productService.check_token(acces_token);
+    return this.productService.update(id, updateProductDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string,@Headers('access_token') acces_token : string) {
-    return this.productService.remove(id,acces_token);
+  async remove(@Param('id') id: string,@Headers('access_token') acces_token : string) {
+    await this.productService.check_token(acces_token);
+    return this.productService.remove(id);
   }
 }
