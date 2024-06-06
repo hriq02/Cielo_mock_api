@@ -15,6 +15,13 @@ export class Recurrent{
     interval : string;
 
     @Column({
+        type : "int",
+        length : 1000000,
+        nullable : true
+    })
+    Amount : number;
+
+    @Column({
         type : "char",
         length : 20,
         nullable : true

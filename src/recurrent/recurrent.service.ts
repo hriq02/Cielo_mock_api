@@ -22,22 +22,38 @@ export class RecurrentService {
   async findOne(id: string) {
     const product = await this.repo_product.findOneBy({id});
     if(!product) throw new NotFoundException("product not found");
-    const recurrent_id = product.recurrent_id;
-    if(!recurrent_id) throw new NotFoundException("recurrency does not exist");
-    const recurrent = await this.repo_recurrent.findOneBy({recurrent_id});
+
+    const recurrent = await this.repo_recurrent.findOneBy({recurrent_id : product.recurrent_id});
     if(!recurrent) throw new NotFoundException("recurrency not found");
 
     return this.recurrency_response(product, recurrent);
   }
 
-  update(id: number, updateRecurrentDto: UpdateRecurrentDto) {
-    return `This action updates a #${id} recurrent`;
+  async update(id: string, updateRecurrentDto: UpdateRecurrentDto) {
+    const recurrent = await this.GetRecurrency(id);
+    await this.repo_recurrent.merge(recurrent, updateRecurrentDto);
+
+    return {"message" : `Recurrent Payment - ${id} Updated Successfully`};
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} recurrent`;
+  async remove(id: string) {
+    const recurrent = await this.GetRecurrency(id);
+
+    return await this.repo_recurrent.remove(recurrent);
   }
 
+  async GetRecurrency(id : string): Promise<Recurrent> {
+    const productPromise = this.repo_product.findOneBy({id});
+    const recurrentPromise = productPromise.then(product => {
+      if(!product) throw new NotFoundException("product not found");
+      return this.repo_recurrent.findOneBy({recurrent_id : product.recurrent_id});
+    })
+    const [product, recurrent] = await Promise.all([productPromise, recurrentPromise]);
+
+    if(!recurrent) throw new NotFoundException("recurrency not found");
+
+    return recurrent;
+  }
 
   async check_token(acces_token : string) {
     if(await this.token_repo.findOneBy({acces_token : acces_token}) === null) 
@@ -81,7 +97,7 @@ export class RecurrentService {
       formatedNextPaymentDate : format_date(recurrent.nextPaymentDate),
       intervalDescription : recurrent.interval,
       recurrentPaymentStatusDescription : recurrent.recurrentPaymentStatus,
-      ammout : product.price
+      ammout : recurrent.Amount
     }
   }
 }
