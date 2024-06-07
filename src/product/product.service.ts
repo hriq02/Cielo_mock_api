@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Repository } from 'typeorm';
@@ -67,7 +67,7 @@ export class ProductService {
    */
   async findOne(id: string) {
     const product = await this.repo_product.findOneBy({id});
-    if(!product) throw new NotFoundException();
+    if(!product) throw new BadRequestException();
 
     const recurrent = await this.repo_recurrent.findOneBy({recurrent_id : product.recurrent_id});
 
@@ -85,7 +85,7 @@ export class ProductService {
   async update(id: string, updateProductDto: UpdateProductDto) {
     const product = await this.repo_product.findOneBy({id});
 
-    if(!product) throw new NotFoundException();
+    if(!product) throw new BadRequestException();
 
     this.repo_product.merge(product, updateProductDto);
     return this.repo_product.save(product);
@@ -97,7 +97,7 @@ export class ProductService {
    */
   async remove(id: string) {
     const product = await this.repo_product.findOneBy({id});
-    if(!product) throw new NotFoundException();
+    if(!product) throw new BadRequestException();
 
     this.repo_product.remove(product);
     return product;

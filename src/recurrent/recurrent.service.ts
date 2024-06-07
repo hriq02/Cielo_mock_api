@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { UpdateRecurrentDto } from './dto/update-recurrent.dto';
 import { CreateRecurrentDto } from './dto/create-recurrent.dto';
 import { Product } from 'src/product/entities/product.entity';
@@ -21,10 +21,10 @@ export class RecurrentService {
 
   async findOne(id: string) {
     const product = await this.repo_product.findOneBy({id});
-    if(!product) throw new NotFoundException("product not found");
+    if(!product) throw new BadRequestException("product not found");
 
     const recurrent = await this.repo_recurrent.findOneBy({recurrent_id : product.recurrent_id});
-    if(!recurrent) throw new NotFoundException("recurrency not found");
+    if(!recurrent) throw new BadRequestException("recurrency not found");
 
     return this.recurrency_response(product, recurrent);
   }
@@ -45,12 +45,12 @@ export class RecurrentService {
   async GetRecurrency(id : string): Promise<Recurrent> {
     const productPromise = this.repo_product.findOneBy({id});
     const recurrentPromise = productPromise.then(product => {
-      if(!product) throw new NotFoundException("product not found");
+      if(!product) throw new BadRequestException("product not found");
       return this.repo_recurrent.findOneBy({recurrent_id : product.recurrent_id});
     })
     const [product, recurrent] = await Promise.all([productPromise, recurrentPromise]);
 
-    if(!recurrent) throw new NotFoundException("recurrency not found");
+    if(!recurrent) throw new BadRequestException("recurrency not found");
 
     return recurrent;
   }
