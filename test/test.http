@@ -50,11 +50,15 @@
 
 #453e841d-f0d4-46da-aef6-f9b88d26ebeb
 
- GET http://localhost:8080/api/public/v1/RecurrentPayment/8c84a58b-9f35-47d6-b842-a57fa1b98645
+#  GET http://localhost:8080/api/public/v1/RecurrentPayment/453e841d-f0d4-46da-aef6-f9b88d26ebeb
+# access_token : eXbeta1q3799tzU_M_pNjkR960iEorL8xAxVN0EmU919-mEJS03UjmhKZGj2fl0913hlI1MryyG8CjT7rULFJ4qbyz3WLVYVtR9VK5tWtBWqexCMyg2f9EsQTi6f95_y82tqdUFAZQ0kZRZWLCK8_vtkhmY1A6EpB3VbmZUhIC3-pkLlX2CD2ohOiDZ9MhlDeLB6iU4Eo3_GA7GOVfm6mQo3Hn_tMIlbjfePxHGhkL-Qb3e1PaQXJ_nhDiApD6bpFsyj9uLYB1iXzS5y8aBrYsKfec3cZpaxSvadohvRVnk5WENIEYrQRoP7D6o3fZOf8MchFbz_UqOkBW1Pyd7CFbvATYOc1M8oQ2MCs1KZUO6KWFthua0igrSsz7c8OTeZoNyeg9SxcSz19iWLWGI7B1r5TIXZhMb_SGSrlJKQFELzW8BqJtHX5ihAarVRQEXWf35hLqo8mBksJ8qhBEyMjQ9DYZ15fYd8
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------
+
+#789123
+
+GET http://localhost:8080/api/public/v2/orders/merchant_order/789123
 access_token : eXbeta1q3799tzU_M_pNjkR960iEorL8xAxVN0EmU919-mEJS03UjmhKZGj2fl0913hlI1MryyG8CjT7rULFJ4qbyz3WLVYVtR9VK5tWtBWqexCMyg2f9EsQTi6f95_y82tqdUFAZQ0kZRZWLCK8_vtkhmY1A6EpB3VbmZUhIC3-pkLlX2CD2ohOiDZ9MhlDeLB6iU4Eo3_GA7GOVfm6mQo3Hn_tMIlbjfePxHGhkL-Qb3e1PaQXJ_nhDiApD6bpFsyj9uLYB1iXzS5y8aBrYsKfec3cZpaxSvadohvRVnk5WENIEYrQRoP7D6o3fZOf8MchFbz_UqOkBW1Pyd7CFbvATYOc1M8oQ2MCs1KZUO6KWFthua0igrSsz7c8OTeZoNyeg9SxcSz19iWLWGI7B1r5TIXZhMb_SGSrlJKQFELzW8BqJtHX5ihAarVRQEXWf35hLqo8mBksJ8qhBEyMjQ9DYZ15fYd8
-
-
-
-
 
 

@@ -7,17 +7,20 @@ export class RecurrentController {
   constructor(private readonly recurrentService: RecurrentService) {}
   
   @Get(':id')
-  findOne(@Param('id') id: string,@Headers('access_token') acces_token : string) {
+  async findOne(@Param('id') id: string,@Headers('access_token') acces_token : string) {
+    await this.recurrentService.check_token(acces_token);
     return this.recurrentService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRecurrentDto: UpdateRecurrentDto,@Headers('access_token') acces_token : string) {
+  async update(@Param('id') id: string, @Body() updateRecurrentDto: UpdateRecurrentDto,@Headers('access_token') acces_token : string) {
+    await this.recurrentService.check_token(acces_token);
     return this.recurrentService.update(id, updateRecurrentDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string,@Headers('access_token') acces_token : string) {
+  async remove(@Param('id') id: string,@Headers('access_token') acces_token : string) {
+    await this.recurrentService.check_token(acces_token);
     return this.recurrentService.remove(id);
   }
 }

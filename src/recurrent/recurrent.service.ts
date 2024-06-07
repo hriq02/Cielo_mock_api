@@ -55,11 +55,21 @@ export class RecurrentService {
     return recurrent;
   }
 
+  /**
+   * checks if the acces token is valid or exist
+   * @param acces_token 
+   */
   async check_token(acces_token : string) {
     if(await this.token_repo.findOneBy({acces_token : acces_token}) === null) 
       throw new UnauthorizedException('acces token invalid');
   }
   
+  /**
+   * returns the recurrency response
+   * @param product 
+   * @param recurrent 
+   * @returns 
+   */
   private recurrency_response(product : Product, recurrent : Recurrent) {
     return {
       $id : "1",
@@ -86,11 +96,11 @@ export class RecurrentService {
       history :{
         $id : "2",
         orderId : "",
-        orderNumber : "",
-        merchantOrderNumber : "",
-        createdDate : "",
-        paymentStatus : "",
-        paymentStatusDescription : ""
+        orderNumber : product.OrderNumber,
+        merchantOrderNumber : product.OrderNumber,
+        createdDate : recurrent.startDate,
+        paymentStatus : recurrent.recurrentPaymentStatus,
+        paymentStatusDescription : recurrent.recurrentPaymentStatusDescription
       },
       lastPaymentDate : recurrent.lastPaymentDate,
       nextPaymentDate : recurrent.nextPaymentDate,

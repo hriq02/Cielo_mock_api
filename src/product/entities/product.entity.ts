@@ -1,7 +1,5 @@
 import { Column, BeforeInsert, PrimaryGeneratedColumn, Entity, OneToOne, JoinColumn } from "typeorm";
-import { Recurrent } from "../../recurrent/entities/recurrent.entity";
 import { nanoid } from "nanoid";
-import { Shipping } from "./shipping.entity";
 
 @Entity({ name: "products" })
 export class Product {
@@ -12,7 +10,8 @@ export class Product {
     @Column({
         type : "varchar",
         length : 64,
-        nullable : true
+        nullable : true,
+        default : nanoid(20).toLowerCase()
     })
     OrderNumber : string;
 
@@ -104,5 +103,6 @@ export class Product {
     @BeforeInsert()
     beforeInsert() {
         this.short_url = nanoid(7)
+        this.OrderNumber
     }
 }

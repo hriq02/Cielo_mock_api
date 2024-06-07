@@ -4,7 +4,7 @@ import { ProductController } from './product.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
 import { Recurrent } from '../recurrent/entities/recurrent.entity';
-import { Shipping } from './entities/shipping.entity';
+import { Shipping } from '../product/entities/shipping.entity';
 import { Token } from 'src/token/entities/token.entity';
 
 @Module({

@@ -4,7 +4,7 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { Repository } from 'typeorm';
 import { Product } from './entities/product.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Shipping } from './entities/shipping.entity';
+import { Shipping } from '../product/entities/shipping.entity';
 
 import { Token } from 'src/token/entities/token.entity';
 import { Recurrent } from 'src/recurrent/entities/recurrent.entity';

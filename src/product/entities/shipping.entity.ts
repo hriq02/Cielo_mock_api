@@ -1,15 +1,12 @@
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Product } from "./product.entity";
+import { Product } from "../../product/entities/product.entity";
+import { nanoid } from "nanoid";
 
 @Entity({name: "shipping"})
 export class Shipping{
 
     @PrimaryGeneratedColumn()
     shipping_id : number;
-
-    // @OneToOne(() => Product)
-    // @JoinColumn()
-    // Prodcut : Product;
 
     @Column({
         type : "varchar",
@@ -37,4 +34,13 @@ export class Shipping{
         nullable : false
     })
     public price : number;
+
+
+    @Column({
+        type : "varchar",
+        length : 32,
+        nullable : true,
+        default : nanoid(35).toLowerCase()
+    })
+    public checkout_cielo_order_number : string;
 }

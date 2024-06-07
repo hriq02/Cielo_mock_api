@@ -1,34 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Headers } from '@nestjs/common';
 import { OrdersService } from './orders.service';
-import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
 
 @Controller('api/public/v2/orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
-  @Post()
-  create(@Body() createOrderDto: CreateOrderDto) {
-    return this.ordersService.create(createOrderDto);
+  @Get('merchant_order/:order_number')
+  async findOne(@Param('order_number') order_number: string,@Headers('access_token') acces_token : string) {
+    //if(isUUID(id)) return this.ordersService.getNotfication(id);
+    await this.ordersService.check_token(acces_token);
+    return this.ordersService.GetCheckoutOrder(order_number);
   }
-
-  @Get()
-  findAll() {
-    return this.ordersService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ordersService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.ordersService.update(+id, updateOrderDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ordersService.remove(+id);
+  @Get(':checkoutOrder')
+  async findOrder(@Param('checkoutOrder') id: string,@Headers('access_token') acces_token : string){
+    await this.ordersService.check_token(acces_token);
+    return this.ordersService.GetTransaction(id);
   }
 }
