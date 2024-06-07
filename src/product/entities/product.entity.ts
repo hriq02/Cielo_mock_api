@@ -10,28 +10,28 @@ export class Product {
     id : string;
 
     @Column({
-        type : "char",
+        type : "varchar",
         length : 64,
         nullable : true
     })
     OrderNumber : string;
 
     @Column({
-        type : "char",
+        type : "varchar",
         length : 255,
         nullable : true
     })
     type : string;
 
     @Column({
-        type : "char",
+        type : "varchar",
         length : 128,
         nullable : false
     })
     name : string;
 
     @Column({
-        type : "char",
+        type : "varchar",
         length : 256,
         nullable : true
     })
@@ -39,20 +39,18 @@ export class Product {
 
     @Column({
         type : "integer",
-        length : 1000000,
         nullable : false
     })
     price : number;
 
     @Column({
         type : "integer",
-        length : 2000000,
         nullable : true
     })
     weight : number;
 
     @Column({
-        type : "char",
+        type : "varchar",
         length : 20,
         nullable : true
     })
@@ -60,33 +58,31 @@ export class Product {
 
     @Column({
         type : "integer",
-        length : 2,
         nullable : true
     })
     maxNumberOfInstallments : number;
 
     @Column({
         type : "integer",
-        length : 2,
         nullable : true
     })
     quantity : number;
 
     @Column({
-        type : "char",
+        type : "varchar",
         length : 32,
         nullable : true
     })
     sku : string;
 
-    @Column()
+    @Column({default: 0})
     shipping_id : number;
 
-    @Column()
+    @Column({default: 0})
     recurrent_id : number;
 
     @Column({
-        type : "char",
+        type : "varchar",
         length : 7,
         nullable : true
     })
@@ -99,7 +95,7 @@ export class Product {
     showDescription : boolean;
 
     @Column({
-        type : "char",
+        type : "varchar",
         length : 13,
         nullable : true
     })
@@ -109,5 +105,4 @@ export class Product {
     beforeInsert() {
         this.short_url = nanoid(7)
     }
-
 }

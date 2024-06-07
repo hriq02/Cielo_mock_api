@@ -12,21 +12,21 @@ export class Shipping{
     // Prodcut : Product;
 
     @Column({
-        type : "char",
+        type : "varchar",
         length : 8,
-        nullable : false
+        nullable : true
     })
     public originZipCode : string;
 
     @Column({
-        type : "char",
+        type : "varchar",
         length : 255,
         nullable : false
     })
     public type: string;
 
     @Column({
-        type : "char",
+        type : "varchar",
         length : 128,
         nullable : false
     })
@@ -34,7 +34,6 @@ export class Shipping{
 
     @Column({
         type : "integer",
-        length : 100000,
         nullable : false
     })
     public price : number;

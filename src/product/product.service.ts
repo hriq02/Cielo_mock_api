@@ -21,48 +21,67 @@ export class ProductService {
     @InjectRepository(Token)
     private readonly token_repo : Repository<Token>
   ){}
-
+  /**
+   * create a new product
+   * @param dto 
+   * @returns 
+   */
   async create(dto: CreateProductDto) {
     const product = this.repo_product.create(dto);
     const recurancy = this.repo_recurrent.create(dto.recurrent);
     const shipping = this.repo_shipping.create(dto.shipping);
-    
-    await this.repo_recurrent.save(recurancy);
-    await this.repo_shipping.save(shipping);
-    
-    product.recurrent_id = recurancy.recurrent_id;
-    product.shipping_id = shipping.shipping_id;
-    
+
+    if(dto.recurrent){
+      await this.repo_recurrent.save(recurancy)
+      product.recurrent_id = recurancy.recurrent_id;
+    }
+    if(dto.shipping){
+      await this.repo_shipping.save(shipping)
+      product.shipping_id = shipping.shipping_id;
+    }
+
     await this.repo_product.save(product);
+  
     return this.product_response(product, shipping, recurancy);
   }
 
+  /**
+   * find all products in database
+   * @returns 
+   */
   async findAll() {
-    let responses = [];
     const products = await this.repo_product.find();
-    const recurrecies = await this.repo_recurrent.find();
-    const shippings = await this.repo_shipping.find();
 
-    for(let i = 0; i <= products.length-1; i++){
-      responses.push(this.product_response(products[i], shippings[i], recurrecies[i]));
-    }
+    const responses = await Promise.all(products.map(async (product) =>{
+      const shipping = await this.repo_shipping.findOneBy({shipping_id : product.shipping_id});
+      const recurrent = await this.repo_recurrent.findOneBy({recurrent_id : product.recurrent_id});
+
+      return await this.product_response(product, shipping, recurrent);
+    }))
     return responses;
   }
-
+  /**
+   * find a product
+   * @param id 
+   * @returns 
+   */
   async findOne(id: string) {
     const product = await this.repo_product.findOneBy({id});
-
     if(!product) throw new NotFoundException();
 
-    const recurrent_id = product.recurrent_id;
-    const recurrent = await this.repo_recurrent.findOneBy({recurrent_id});
+    const recurrent = await this.repo_recurrent.findOneBy({recurrent_id : product.recurrent_id});
 
     const shipping_id = product.shipping_id;
     const shipping = await this.repo_shipping.findOneBy({shipping_id});
 
     return this.product_response(product, shipping, recurrent );
   }
-
+  /**
+   * updates a product
+   * @param id 
+   * @param updateProductDto 
+   * @returns 
+   */
   async update(id: string, updateProductDto: UpdateProductDto) {
     const product = await this.repo_product.findOneBy({id});
 
@@ -71,7 +90,11 @@ export class ProductService {
     this.repo_product.merge(product, updateProductDto);
     return this.repo_product.save(product);
   }
-
+  /**
+   * removes a product
+   * @param id 
+   * @returns 
+   */
   async remove(id: string) {
     const product = await this.repo_product.findOneBy({id});
     if(!product) throw new NotFoundException();
@@ -79,13 +102,22 @@ export class ProductService {
     this.repo_product.remove(product);
     return product;
   }
-
-  async check_token(acces_token : string) {
-    if(await this.token_repo.findOneBy({acces_token : acces_token}) === null) 
+  /**
+   * it checks the access token to see if exist or not
+   * @param accessToken 
+   */
+  async check_token(accessToken : string) {
+    if(await this.token_repo.findOneBy({acces_token : accessToken}) === null) 
       throw new UnauthorizedException('acces token invalid');
   }
-
-  private product_response(product : Product, shipping : Shipping, recurency : Recurrent) {
+  /**
+   * formats a response for the client
+   * @param product 
+   * @param _shipping 
+   * @param _recurency 
+   * @returns 
+   */
+  private product_response(product : Product, _shipping : Shipping, _recurency : Recurrent) {
     return {
       id : product.id,
       shortUrl : `http://bit.ly/${product.short_url}`,
@@ -96,17 +128,18 @@ export class ProductService {
       showDescription : product.showDescription,
       price : product.price,
       weight : product.weight,
-      
-      shipping : {
-          type : shipping.type,
-          name : shipping.name,
-          price : shipping.price
-      },
-      recurrent : {
-          interval : recurency.interval,
-          endDate : recurency.endDate
-      },
-      
+
+      shipping : _shipping ? {
+        type : _shipping.type,
+        name : _shipping.name,
+        price : _shipping.price
+      } : {},
+
+      recurrent : _recurency ?{
+        interval : _recurency.interval,
+        endDate : _recurency.endDate
+      } : {},
+
       softDescriptor : product.softDescriptor,
       expirationDate : product.expirationDate,
       maxNumberOfInstallments : product.maxNumberOfInstallments,
@@ -129,7 +162,7 @@ export class ProductService {
         href : `http://localhost:8080/Api/public/v1/product/${product.id}`
       },
     }
-}
+  }
 
 
 }
