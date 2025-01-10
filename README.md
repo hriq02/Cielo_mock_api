@@ -1,4 +1,6 @@
 # Cielo Mock API
+<h2>Warning</h2>
+The API had changed, this mock does not longer mocks CIELO's API
 
 <h2>About</h2>
 <div>This is a mock from the Cielo pagamento link API.</div>
